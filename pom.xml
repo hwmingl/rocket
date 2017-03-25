@@ -25,6 +25,7 @@
     <modules>
         <module>rocket-server</module>
         <module>rocket-socketio-server</module>
+        <module>rocket-socketio-support</module>
     </modules>
 
     <dependencyManagement>
@@ -39,6 +40,12 @@
             <dependency>
                 <groupId>com.fighter.rocket</groupId>
                 <artifactId>rocket-socketio-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fighter.rocket</groupId>
+                <artifactId>rocket-socketio-support</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

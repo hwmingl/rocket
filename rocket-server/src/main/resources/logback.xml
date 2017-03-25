@@ -1,6 +1,6 @@
 <configuration>
 
-    <property name="LOG_HOME" value="/home/app/game" />
+    <property name="LOG_HOME" value="/home/app/rocket" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

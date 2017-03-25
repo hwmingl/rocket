@@ -9,20 +9,18 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>rocket-socketio-server</artifactId>
+    <artifactId>rocket-socketio-support</artifactId>
 
     <dependencies>
 
         <dependency>
-            <groupId>com.fighter.rocket</groupId>
-            <artifactId>rocket-socketio-support</artifactId>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
 
-
-        <!-- log -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
         </dependency>
 
     </dependencies>
