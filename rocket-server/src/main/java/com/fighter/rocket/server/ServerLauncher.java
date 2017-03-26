@@ -1,5 +1,6 @@
 package com.fighter.rocket.server;
 
+import rocket.external.socketio.config.Configuration;
 import rocket.external.socketio.server.SocketIOServer;
 
 /**
