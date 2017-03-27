@@ -5,6 +5,8 @@ package rocket.external.socketio.config;
  */
 public class Configuration {
 
+    private String                context               = "/socket.io";
+
     private int                   bossThreads           = 0;                             // 0 = current_processors_amount * 2
     private int                   workerThreads         = 0;                             // 0 = current_processors_amount * 2
     private String                hostname;
@@ -12,6 +14,14 @@ public class Configuration {
     private int                   sslPort               = -1;
 
     private SocketConfig          socketConfig          = new SocketConfig();
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
 
     public int getBossThreads() {
         return bossThreads;

@@ -1,0 +1,30 @@
+长连接建立步骤
+
+1. 获取鉴权参数-getQueryStr, 见API方法：5. 鉴权-queryStr，得到
+   response = ?param=b8c37e33defde51cf91e1e03e51657da,cheXuanEr,VURaDYu%2F96LNK%2BpfcVzaK30DMtoR4748bfGV%2B1Rfokk%3D
+                  md5(userId),appId,token
+
+2. 验证鉴权参数,
+   发送get请求至 http://219.232.255.206:6060/socket.io/1/
+   参数：?param=b8c37e33defde51cf91e1e03e51657da,cheXuanEr,VURaDYu%2F96LNK%2BpfcVzaK30DMtoR4748bfGV%2B1Rfokk%3D&terminalId={设备ID}&t={时间戳}
+   response:
+   115e7cfa-ac23-4cf6-9f5d-926eda0f6e1d:120:60:websocket:127.0.0.1:6060:JOg99gcuRfVomsOJOtFRQl6HVzKsVhqT5WTQesYVIMweTk4NIMQSItbrM0Rgs/vpPJm2WmLbogp+hN74nUuY6RGNxoKPib0woVMOxUAwnO4=
+   response结果以逗号分隔，分别代表的意思： sessionId : heartbeatTimeOut : CloseTimeOut : protocol : serverIp : serverPort : sessionStr
+
+3. 建立长连接，
+   URL为：ws://serverIp:serverPort/socket.io/websocket/{sessionId},{sessionStr,注意替换下换行符}{QueryStr&terminalId=设备ID,注意，queryStr如果有%，URLDecoder下}
+
+4. 握手协议会在服务端进行，握手成功后将此client保存，并向此client下发connect信息包(1::);
+   4.1 连接: client端不知是否有握手完成事件，如果有，在握手完成事件后，向server发送connect信息包(1::)，若没有，则在收到下发connect信息包后发送。
+   4.2 心跳: 分为主动和被动，一般为被动接收心跳，server下发心跳包(2::),收到后，向server发送心跳回应(2::), 60s无心跳，服务端自动断开连接，关闭通道
+   4.3 连接成功，server下发 5:::{"name":"pushMsg","args":[{"tm":0,"msgType":"subscribed","app":"appTest1"}]}
+       如果遇到msgType=subscribed,请求服务端下发本人在此app下的未读消息：5:::{"name":"upMsg","args":[{"reqType":"reqUnReadMsg","cnt":"appTest1,1000"}]}
+
+5. 订阅topic
+   appTopic由 appId _t_ 主题名字 组成，订阅Topic的token来自
+   订阅主题: 5:::{"name":"subscribeTopicMsg","args":[{"appTopic":"appTest1_t_topicTest1","token":"K9D1stQqyhvoRcrot2TJJa2Ez5a/13kX5zXob/Icf0Tlw70EY4AispTEBotfU+DM"}]}
+   取消订阅: 5:::{"name":"unSubscribeTopicMsg","args":["appTest1_t_topicTest1"]}
+
+6. token过期发生在订阅user和订阅topic时，如果过期，都要重新进行订阅
+   topic token过期 5:::{"name":"pushMsg","args":[{"app":"appTest1","msgType":"tokenExpired","topic":"topicTest"}]}
+   user token过期 5:::{"name":"pushMsg","args":[{"app":"appTest1","msgType":"tokenExpired"}]}
