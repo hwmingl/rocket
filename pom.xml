@@ -26,6 +26,7 @@
         <module>rocket-server</module>
         <module>rocket-socketio-server</module>
         <module>rocket-socketio-support</module>
+        <module>rocket-authorize-util</module>
     </modules>
 
     <dependencyManagement>
@@ -70,6 +71,13 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>3.0.0</version>
+                <optional>true</optional>
             </dependency>
 
             <dependency>

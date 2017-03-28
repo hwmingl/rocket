@@ -43,6 +43,8 @@ public class SocketIOServer {
     }
 
     private void initServer(ServerBootstrap serverBootstrap){
+        channelInitializer.start(configuration);
+
         SocketConfig config = configuration.getSocketConfig();
 
         serverBootstrap.group(bossGroup,workerGroup)
