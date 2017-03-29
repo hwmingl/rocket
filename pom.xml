@@ -51,6 +51,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.fighter.rocket</groupId>
+                <artifactId>rocket-authorize-util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
                 <version>${commons-codec.version}</version>
