@@ -1,5 +1,9 @@
 package rocket.external.socketio.config;
 
+import rocket.external.socketio.authorize.Authorize;
+
+import java.io.InputStream;
+
 /**
  * Created by hanwm on 17/3/24.
  */
@@ -18,7 +22,16 @@ public class Configuration {
     private int                   port                  = -1;
     private int                   sslPort               = -1;
 
+    private String                keyStoreFormat        = "JKS";
+    private String                keyStore;
+    private String                keyStorePassword;
+
+    private String                trustStoreFormat      = "JKS";
+    private InputStream           trustStore;
+    private String                trustStorePassword;
+
     private SocketConfig          socketConfig          = new SocketConfig();
+    private Authorize             authorize;
 
     public String getContext() {
         return context;
@@ -84,11 +97,67 @@ public class Configuration {
         this.sslPort = sslPort;
     }
 
+    public String getKeyStoreFormat() {
+        return keyStoreFormat;
+    }
+
+    public void setKeyStoreFormat(String keyStoreFormat) {
+        this.keyStoreFormat = keyStoreFormat;
+    }
+
+    public String getKeyStore() {
+        return keyStore;
+    }
+
+    public void setKeyStore(String keyStore) {
+        this.keyStore = keyStore;
+    }
+
+    public String getKeyStorePassword() {
+        return keyStorePassword;
+    }
+
+    public void setKeyStorePassword(String keyStorePassword) {
+        this.keyStorePassword = keyStorePassword;
+    }
+
+    public String getTrustStoreFormat() {
+        return trustStoreFormat;
+    }
+
+    public void setTrustStoreFormat(String trustStoreFormat) {
+        this.trustStoreFormat = trustStoreFormat;
+    }
+
+    public InputStream getTrustStore() {
+        return trustStore;
+    }
+
+    public void setTrustStore(InputStream trustStore) {
+        this.trustStore = trustStore;
+    }
+
+    public String getTrustStorePassword() {
+        return trustStorePassword;
+    }
+
+    public void setTrustStorePassword(String trustStorePassword) {
+        this.trustStorePassword = trustStorePassword;
+    }
+
     public SocketConfig getSocketConfig() {
         return socketConfig;
     }
 
     public void setSocketConfig(SocketConfig socketConfig) {
         this.socketConfig = socketConfig;
+    }
+
+    public Authorize getAuthorize() {
+        return authorize;
+    }
+
+    public void setAuthorize(Authorize authorize) {
+        this.authorize = authorize;
     }
 }

@@ -30,7 +30,7 @@ public class WebSocketClient {
 
     }
 
-    private String getWebSocketAddr(){
+    private String getWebSocketAddr() throws UnsupportedEncodingException {
         String queryStr = getQueryStr();
 
         String authResult = getAuthorizeResult(queryStr);
@@ -38,7 +38,7 @@ public class WebSocketClient {
         String[] args = authResult.split(":");
         StringBuffer stringBuffer = new StringBuffer("ws://"+ HOST +":6060/socket.io/1/websocket/");
         stringBuffer.append(args[0]).append(",").append(args[6].replaceAll("\\n",""));
-        stringBuffer.append(URLDecoder.decode(queryStr));
+        stringBuffer.append(URLDecoder.decode(queryStr,"UTF-8"));
         stringBuffer.append("&terminalId=").append(TERMINAL_ID);
         System.out.println(stringBuffer.toString());
         return stringBuffer.toString();

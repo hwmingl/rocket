@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd" default-autowire="byName">
+
+    <bean id="rocketServer" class="com.fighter.rocket.server.RocketServer">
+        <property name="socketIOServer" ref="socketIOServer"/>
+        <property name="isDevelopMode" value="true"/>
+    </bean>
+
+    <bean id="socketIOServer" class="rocket.external.socketio.server.SocketIOServer">
+        <constructor-arg name="configuration" ref="socketIoConfiguration"/>
+    </bean>
+
+    <bean id="socketIoConfiguration" class="rocket.external.socketio.config.Configuration">
+        <property name="port" value="6060" />
+        <property name="sslPort" value="8443" />
+        <property name="context" value="/socket.io" />
+        <property name="bossThreads" value="1" />
+        <property name="workerThreads" value="50" />
+        <property name="keyStore" value="keystore/apush.jks"/>
+        <property name="keyStorePassword" value="123456"/>
+        <property name="authorize" ref="authorize"/>
+    </bean>
+
+    <bean id="authorize" class="com.fighter.rocket.socketio.authorize.impl.DefaultAuthorizeImpl">
+        <property name="authorizeKey" value="YouMustModifyThisToAnOtherString"/>
+    </bean>
+</beans>
